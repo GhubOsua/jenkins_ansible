@@ -4,7 +4,7 @@ pipeline {
     stage('Hello') {
       steps {
 //        sh 'ansible-galaxy collection install -r requirements.yml'
-        sh 'ansible-playbook -i inventory/mariadb.hosts playbooks/mariadb.yml -vvv'
+        sh 'ansible-playbook -i inventory/mariadb.hosts playbooks/mariadb.yml -vvvvvvv'
       }
     }
   }
