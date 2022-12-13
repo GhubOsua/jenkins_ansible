@@ -7,6 +7,7 @@ https://github.com/GhubOsua/jenkins_ansible
 ## 3. Настройки в jenkins;
 Прописываешь ключ приватны ssh в jenkins http://192.168.4.5:8080/manage/credentials/ , чтобы через контроллер jenkins по УЗ vagrant можно было использовать ansbile;
 Сам файл jenkins:
+```
 pipeline {
   agent { label 'linux' }
   environment {
@@ -21,6 +22,7 @@ pipeline {
     }
   }
 }
+```
 ## 4. По поводу параметра "разворачивать каждый тим серверов БД по параметру";
 К сожалению не успеваю добавить в playbook, т.к. ночных смен добавились и не могу разорваться.
 В playbook добавить
