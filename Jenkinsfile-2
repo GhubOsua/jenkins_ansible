@@ -1,5 +1,8 @@
 pipeline {
   agent {label 'linux'}
+  environment {
+   ANSIBLE_PRIVATE_KEY=credentials('vagrant') 
+  }  
   stages {
     stage('Hello') {
       steps {
