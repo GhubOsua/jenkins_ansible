@@ -1,0 +1,12 @@
+
+pipeline {
+  agent {label 'linux'}
+  stages {
+    stage('Hello') {
+      steps {
+//        sh 'ansible-galaxy collection install -r requirements.yml'
+        sh 'ansible -i hosts serv -m shell -a 'pwd' -bu vagrant -vvvv'
+      }
+    }
+  }
+}
