@@ -26,25 +26,29 @@ pipeline {
 ## 4. По поводу параметра "разворачивать каждый тим серверов БД по параметру";
 К сожалению не успеваю добавить в playbook, т.к. ночных смен добавились и не могу разорваться.
 В playbook добавить
+```
 vars:
 supported_distros:
 - CentOS
 - Ubuntu
-
+```
 И когда идет установка в yum, добавить when
-    - name: Install MariaDB server
+```
+- name: Install MariaDB server
       yum:
         name:
           - MariaDB-server
         state: latest
       when: ansible_distribution in supported_distros
+ ```
 Или несколько условий добавить:    when: ansible_distribution_version == "7.5" and ansible_kernel == "3.10.0-327.el7.x86_64"
 Или более сложеные условия, как описано в книге по ansible
+```
 when: >
 ( ansible_distribution == "RedHat" and
 ansible_distribution_major_version == "7" )
 or
 ( ansible_distribution == "Fedora" and
 ansible_distribution_major_version == "28" )
-
-Хотел еще через jenkins реализовать docker , но времене нет, перед НГ много текущих задач и каждым нужно тех. задания выполнять. Прошу прощения, за такой черновик.
+```
+# Хотел еще через jenkins реализовать docker , но времене нет, перед НГ много текущих задач и каждым нужно тех. задания выполнять. Прошу прощения, за такой черновик.
