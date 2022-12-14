@@ -8,7 +8,7 @@
   tasks:
     - name: MariaDB yum repository and install DB for {{ supproted_distros_1 }}
       block:
-      - name: Add repository
+      - name: Add repository {{ supproted_distros_1 }}
         yum_repository:
           name: MariaDB
           description: MariaDB
@@ -16,12 +16,12 @@
           enabled: yes
           gpgcheck: yes
           gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
-      - name: Install MariaDB server
+      - name: Install MariaDB server for {{ supproted_distros_1 }}
         yum:
           name:
             - MariaDB-server
           state: latest
-      - name: start MariaDB service
+      - name: start MariaDB service for {{ supproted_distros_1 }}
         systemd:
           name: mariadb
           state: started
@@ -29,11 +29,10 @@
         ansible.builtin.command: mysql --version
         register: mysql_version
       - debug: var=mysql_version.stdout_lines
-      when: distribution == {{ supproted_distros_1 }}
+      when: ansible_facts['distribution'] == "{{ supproted_distros_1 }}"
 
     - name: MariaDB install DB for {{ supproted_distros_2 }}
       apt:
         name: mariadb-server
         state: present
-      when: distribution == {{ supproted_distros_2 }}
-
+      when: ansible_facts['distribution'] == "{{ supproted_distros_2 }}"
