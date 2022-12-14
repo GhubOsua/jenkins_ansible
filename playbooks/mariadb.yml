@@ -29,10 +29,11 @@
         ansible.builtin.command: mysql --version
         register: mysql_version
       - debug: var=mysql_version.stdout_lines
-      when: distribution == supproted_distros_1
+      when: distribution == {{ supproted_distros_1 }}
 
     - name: MariaDB install DB for {{ supproted_distros_2 }}
       apt:
         name: mariadb-server
         state: present
-      when: distribution == supproted_distros_2
+      when: distribution == {{ supproted_distros_2 }}
+
