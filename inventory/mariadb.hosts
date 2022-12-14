@@ -3,3 +3,4 @@ ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 
 [mariadbs]
 ubuntutest1 ansible_ssh_host=192.168.127.3 ansible_user=vagrant
+centOS7test2 ansible_ssh_host=192.168.14.5 ansible_user=vagrant
