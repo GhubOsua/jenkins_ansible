@@ -1,0 +1,38 @@
+- name: MariaDB installation
+  hosts: mariadbs
+  gather_facts: yes
+  become: yes
+  vars:
+    supproted_distros_1: CentOS
+    supproted_distros_2: Ubuntu
+  tasks:
+    - name: MariaDB yum repository and install DB for {{ supproted_distros_1 }}
+      block:
+      - name: Add repository
+        yum_repository:
+          name: MariaDB
+          description: MariaDB
+          baseurl: http://yum.mariadb.org/10.6.11/centos$releasever-amd64
+          enabled: yes
+          gpgcheck: yes
+          gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+      - name: Install MariaDB server
+        yum:
+          name:
+            - MariaDB-server
+          state: latest
+      - name: start MariaDB service
+        systemd:
+          name: mariadb
+          state: started
+      - name: verify installation
+        ansible.builtin.command: mysql --version
+        register: mysql_version
+      - debug: var=mysql_version.stdout_lines
+      when: distribution == supproted_distros_1
+
+    - name: MariaDB install DB for {{ supproted_distros_2 }}
+      apt:
+        name: mariadb-server
+        state: present
+      when: distribution == supproted_distros_2
